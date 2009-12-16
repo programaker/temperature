@@ -1,8 +1,11 @@
 CelsiusTemperature = Origin mimic do(
-    value = 0
-    initialize = method(value, @value = value)
-    asText = method("#{value}ºC")
-    cell(:"==") = method(other, @kind == other kind && @value == other value)
+    degrees = 0
+    initialize = method(degrees, @degrees = degrees)
+    asText = method("#{degrees}ºC")
+    cell("==") = method(other, @kind == other kind && @degrees == other degrees)
+    cell("+") = method(other, CelsiusTemperature mimic(@degrees + other degrees))
+    cell("-") = method(other, CelsiusTemperature mimic(@degrees - other degrees))
+    negation = method(CelsiusTemperature mimic(@degrees negation))
 )
 
 Message OperatorTable operators[:"ºC"] = 1

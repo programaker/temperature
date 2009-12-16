@@ -1,17 +1,51 @@
 use("ispec")
 use("temperature")
 
-describe("ºC",
-    it("should create a CelsiusTemperature object",
-        integerTemperatureObject = CelsiusTemperature mimic(10)
-        integerTemperatureLiteral = 10ºC
-        integerTemperatureLiteral should == integerTemperatureObject
+describe("Temperature DSL",
+    describe("ºC",
+        it("should create a CelsiusTemperature from an integer value",
+            t1 = CelsiusTemperature mimic(10)
+            t2 = 10ºC
+            t2 should == t1
+        )
         
-        decimalTemperatureObject = CelsiusTemperature mimic(40.5)
-        decimalTemperatureLiteral = 40.5ºC
-        decimalTemperatureLiteral should == decimalTemperatureObject
+        it("should create a CelsiusTemperature from a decimal value",
+            t1 = CelsiusTemperature mimic(40.5)
+            t2 = 40.5ºC
+            t2 should == t1
+        )
         
-        literalTemperatureWithSpace = 30.1 ºC
-        literalTemperatureWithSpace should == CelsiusTemperature mimic(30.1)
+        it("should create a CelsiusTemperature when there's a blank space between value and symbol",
+            t1 = CelsiusTemperature mimic(10)
+            t2 = 10 ºC
+            t2 should == t1
+            
+            t3 = CelsiusTemperature mimic(40.5)
+            t4 = 40.5 ºC
+            t4 should == t3
+        )
+        
+        it("should create a CelsiusTemperature from a variable",
+            v1 = 40
+            t1 = v1ºC
+            t1 should == CelsiusTemperature mimic(40)
+            
+            v2 = 15.5
+            t2 = v2 ºC
+            t2 should == CelsiusTemperature mimic(15.5)
+        )
     )
-)
+    
+    describe("+",
+        it("should return the sum of two temperatures",
+            (2ºC + 40.5ºC) should == 42.5ºC
+        )
+    )
+    
+    describe("-",
+        it("should return the difference of two temperatures",
+            (40.5ºC - 10ºC) should == 30.5ºC
+            (0ºC - 10ºC) should == -10ºC
+        )
+    )
+)    
