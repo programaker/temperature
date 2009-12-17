@@ -149,4 +149,32 @@ describe("Temperature DSL",
             273K inCelsius should == 0ºC
         )
     )
+    
+    describe("inFahrenheit",
+        it("should convert from CelsiusTemperature to FahrenheitTemperature",
+            0 ºC inFahrenheit should == 32 ºF
+        )
+        
+        it("should return itself for FahrenheitTemperature",
+            0 ºF should == 0 ºF
+        )
+        
+        it("should convert from KelvinTemperature to FahrenheitTemperature",
+            273 K inFahrenheit should == 32 ºF
+        )
+    )
+    
+    describe("inKelvin",
+        it("should convert from CelsiusTemperature to KelvinTemperature",
+            0 ºC inKelvin should == 273 K 
+        )
+        
+        it("should convert from FahrenheitTemperature to KelvinTemperature",
+            32 ºF inKelvin should == 273 K
+        )
+        
+        it("should return itself for KelvinTemperature",
+            273 K inKelvin should == 273 K
+        )
+    )
 )    

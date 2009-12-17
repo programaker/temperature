@@ -14,16 +14,22 @@ Temperature = Origin mimic do(
 CelsiusTemperature = Temperature mimic do(
     symbol = "ºC"
     inCelsius = method(self)
+    inFahrenheit = method(FahrenheitTemperature mimic(9 * @degrees / 5.0 + 32))
+    inKelvin = method(KelvinTemperature mimic(@degrees + 273))
 )
 
 FahrenheitTemperature = Temperature mimic do(
     symbol = "ºF"
-    inCelsius = method(CelsiusTemperature mimic((5 / 9.0) * (@degrees - 32)))
+    inCelsius = method(CelsiusTemperature mimic(5 / 9.0 * (@degrees - 32)))
+    inFahrenheit = method(self)
+    inKelvin = method(inCelsius inKelvin)
 )
 
 KelvinTemperature = Temperature mimic do(
     symbol = "K"
     inCelsius = method(CelsiusTemperature mimic(@degrees - 273))
+    inFahrenheit = method(inCelsius inFahrenheit)
+    inKelvin = method(self)
 )
 
 
