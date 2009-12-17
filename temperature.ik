@@ -1,3 +1,7 @@
+;; conditions
+Condition Error NegativeKelvin = Condition Error mimic
+
+
 ;; temperature objects
 Temperature = Origin mimic do(
     degrees = 0
@@ -30,6 +34,9 @@ KelvinTemperature = Temperature mimic do(
     inCelsius = method(CelsiusTemperature mimic(@degrees - 273))
     inFahrenheit = method(inCelsius inFahrenheit)
     inKelvin = method(self)
+    before(:-) << method(other, if(@degrees - other degrees < 0, error!(Condition Error NegativeKelvin)))
+    before(:negation) << method(error!(Condition Error NegativeKelvin))
+    before(:mimic) << method(degrees, if(degrees < 0, error!(Condition Error NegativeKelvin)))
 )
 
 

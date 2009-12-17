@@ -105,6 +105,12 @@ describe("Temperature DSL",
             t2 = v2 K
             t2 should == KelvinTemperature mimic(15.5)
         )
+        
+        it("should not allow a negative KelvinTemperature",
+            fn(-30K) should signal(Condition Error NegativeKelvin)
+            fn(-40 K) should signal(Condition Error NegativeKelvin)
+            fn(50K negation) should signal(Condition Error NegativeKelvin)
+        )
     )
     
     describe("asText",
@@ -132,7 +138,7 @@ describe("Temperature DSL",
             (0ºF - 10ºF) should == -10ºF
             
             (40.5K - 10K) should == 30.5K
-            ;; remember: there's no negative Kelvin!
+            fn(0K - 10K) should signal(Condition Error NegativeKelvin)
         )
     )
     
