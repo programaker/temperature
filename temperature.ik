@@ -6,13 +6,12 @@ Condition Error NegativeKelvin = Condition Error mimic
 Temperature = Origin mimic do(
     degrees = 0
     symbol = ""
-    internal:mimicKind = method(value, Ground cell(@kind) mimic(value))
     initialize = method(degrees 0, @degrees = degrees)
     asText = method("#{degrees}#{symbol}")
     cell("==") = method(other, @kind == other kind && @degrees == other degrees)
-    cell("+") = method(other, internal:mimicKind(@degrees + other degrees))
-    cell("-") = method(other, internal:mimicKind(@degrees - other degrees))
-    negation = method(internal:mimicKind(@degrees negation))
+    cell("+") = method(other, mimic(@degrees + other degrees))
+    cell("-") = method(other, mimic(@degrees - other degrees))
+    negation = method(mimic(@degrees negation))
 )
 
 CelsiusTemperature = Temperature mimic do(
